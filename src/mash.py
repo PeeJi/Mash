@@ -8,7 +8,7 @@ def log_me(msg):
 
 
 def get_mash_data():
-    mash_df = pd.read_csv(r"https://docs.google.com/spreadsheets/d/1BOClfg0EGVX1OkrV3UtVdd0qQSs5kNDM2WpZJqWaulk/edit?usp=sharing")
+    mash_df = pd.read_csv("../tmp/MASH_Old and New.csv")
 
     mash_pan = mash_df[mash_df['Geography'] == 'All India']
     if len(mash_pan) > 0:
