@@ -36,15 +36,14 @@ def parse_vertical_data(parm_mash_df, filter_product=None, filter_geo=None):
 
     if len(mash_df) == 0:
         return None, 0
-    nof_cam = mash_df['Campaign Id'].drop_duplicates().count()
+    nof_campains = mash_df['Campaign Id'].drop_duplicates().count()
     sort_order = {'Newspaper': 0, 'Magazine': 1, 'Cinema': 2, 'Influencer Marketing': 3, 'Television': 4, 'Nontraditional': 5, 'Radio': 6, 'Airport': 7, 'Outdoor': 8, 'Digital': 9}
     filtered_df = mash_df[['Media Vertical', 'Campaign Id']].drop_duplicates().groupby('Media Vertical').count().reset_index()
     filtered_df.columns = ['Media Vertical', 'Campaign Count']
-    nof_campains = filtered_df['Campaign Count'].sum()
     filtered_df['Campaign Percentage'] = filtered_df['Campaign Count'].map(lambda x: round((x * 100) / nof_campains))
     filtered_df = filtered_df.sort_values(by=['Campaign Percentage'], ascending=False).reset_index(drop=True)
 
-    return filtered_df[['Media Vertical', 'Campaign Percentage']], nof_cam
+    return filtered_df[['Media Vertical', 'Campaign Percentage']], nof_campains
 
 
 def parse_sub_verticaSl_data(parm_mash_df, vertical, filter_product=None, filter_geo=None):
