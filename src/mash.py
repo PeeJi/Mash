@@ -128,16 +128,16 @@ def main():
     with st.container():
         c1, c2 = st.columns(2)
         with c1:
-            # st.table(filtered_mash)
-            for i, row in filtered_mash.iterrows():
-                st.progress(row['Campaign Percentage'])
-                sub_vertical = parse_sub_verticaSl_data(mash_df, row['Media Vertical'], filter_product=st.session_state.selection_prod, filter_geo=st.session_state.selection_geo)
-                with st.expander(f"{row['Media Vertical']}      {row['Campaign Percentage']}%"):
-                    for j, sub_row in sub_vertical.iterrows():
-                        if j > 10:
-                            break
-                        st.progress(sub_row['Campaign Percentage'])
-                        st.write(f"{sub_row['Sub Vertical']} {sub_row['Campaign Percentage']}%")
+            if filtered_mash is not None:
+                for i, row in filtered_mash.iterrows():
+                    st.progress(row['Campaign Percentage'])
+                    sub_vertical = parse_sub_verticaSl_data(mash_df, row['Media Vertical'], filter_product=st.session_state.selection_prod, filter_geo=st.session_state.selection_geo)
+                    with st.expander(f"{row['Media Vertical']}      {row['Campaign Percentage']}%"):
+                        for j, sub_row in sub_vertical.iterrows():
+                            st.progress(sub_row['Campaign Percentage'])
+                            st.text(f"{sub_row['Sub Vertical']} {sub_row['Campaign Percentage']}%")
+            else:
+                st.write('No results found.')
 
         with c2:
             pass
@@ -152,15 +152,19 @@ if __name__ == '__main__':
     st.markdown(
         """
         <style>
-            .stProgress > div > div > div > div {
-                background-color: green;
-            }
-            .stProgress > div > div > div {
-                height: 15px; 
-            }
-            [data-testid="stExpander"] details {
-                border-style: none;
-            }
+        /* Below code is to change progress bar colour. */
+        .stProgress > div > div > div > div {
+            background-color: grey;
+        }
+        /* Below code is to increase height of progress bar. */
+        .stProgress > div > div > div {
+            height: 15px; 
+        }
+        /* Below code is to remove expander border. */
+        [data-testid="stExpander"] details {
+            border-style: none;
+            font-size: 32px;
+        }
         </style>""",
         unsafe_allow_html=True,
     )
