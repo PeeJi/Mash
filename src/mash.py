@@ -11,17 +11,17 @@ def get_mash_data():
     mash_df = pd.read_csv('./tmp/MASH_Old and New.csv')
     # pd.read_csv('https://drive.google.com/file/d/1I48S6V5aeoSNSKo4cJywrQY1nZUFX17Q/view?usp=sharing', names=['Spend', 'Geography', 'Media Vertical', 'Media Name', 'Campaign Id', 'Product Category'])
 
-    mash_pan = mash_df[mash_df['Geography'] == 'All India']
-    if len(mash_pan) > 0:
-        mash_df = mash_df[mash_df['Geography'] != 'All India'] # Removed pan india geography
-        cities = ('Bengaluru', 'Delhi', 'Mumbai', 'Chennai', 'Pune', 'Hyderabad')
-        new_rows = []
-        for index, row in mash_pan.iterrows():
-            for c in cities:
-                row['Geography'] = c
-                row_dict = row.to_dict()
-                new_rows.append(row_dict)
-        mash_df = pd.concat([mash_df, pd.DataFrame(new_rows)])
+    # mash_pan = mash_df[mash_df['Geography'] == 'All India']
+    # if len(mash_pan) > 0:
+    #     mash_df = mash_df[mash_df['Geography'] != 'All India'] # Removed pan india geography
+    #     cities = ('Bengaluru', 'Delhi', 'Mumbai', 'Chennai', 'Pune', 'Hyderabad')
+    #     new_rows = []
+    #     for index, row in mash_pan.iterrows():
+    #         for c in cities:
+    #             row['Geography'] = c
+    #             row_dict = row.to_dict()
+    #             new_rows.append(row_dict)
+    #     mash_df = pd.concat([mash_df, pd.DataFrame(new_rows)])
 
     return mash_df
 
