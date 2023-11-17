@@ -60,7 +60,7 @@ def parse_sub_verticaSl_data(parm_mash_df, vertical, filter_product=None, filter
     filtered_df = mash_df[['Sub Vertical', 'Campaign Id']].drop_duplicates().groupby('Sub Vertical').count().reset_index()
     filtered_df.columns = ['Sub Vertical', 'Campaign Count']
     filtered_df['Campaign Percentage'] = filtered_df['Campaign Count'].map(lambda x: round((x * 100) / filtered_df['Campaign Count'].sum()))
-    filtered_df = filtered_df.sort_values(by=['Campaign Percentage'], ascending=False).reset_index(drop=True)
+    filtered_df = filtered_df.sort_values(by=['Campaign Percentage'], ascending=True).reset_index(drop=True)
 
     return filtered_df[['Sub Vertical', 'Campaign Percentage']]
 
